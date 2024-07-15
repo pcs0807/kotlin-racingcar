@@ -1,19 +1,20 @@
 package step3
 
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class RaceGameTest {
-
     @Test
-    fun `경주 게임이 올바르게 실행되는지 확인`() {
-        val cars = List(3) { Car() }
-        val game = RaceGame(cars, 5)
+    fun `차량의 동작 개수 확인`() {
+        val initialCars = listOf(Car(), Car(), Car())
+        val initialCarList = CarList(initialCars)
+        val game = RaceGame(initialCarList, 5)
 
-        game.runRace()
+        val raceResults = game.runRace()
+        assertEquals(5, raceResults.size)
 
-        cars.forEach { car ->
-            assertTrue(car.position > 0)
+        raceResults.forEach { carList ->
+            assertEquals(initialCars.size, carList.carList.size)
         }
     }
 }
